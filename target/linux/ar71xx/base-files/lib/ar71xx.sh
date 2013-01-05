@@ -132,6 +132,9 @@ tplink_board_detect() {
 	"431000"*)
 		model="TP-Link TL-WDR4310"
 		;;
+        "453000"*)
+                model="Mercury MW-4530R"
+                ;;
 	*)
 		hwver=""
 		;;
@@ -366,7 +369,7 @@ ar71xx_board_detect() {
 	*"TL-WA901ND v2")
 		name="tl-wa901nd-v2"
 		;;
-	*"TL-WDR3600/4300/4310")
+	*"TL-WDR3600/4300/4310 and MW-4530R")
 		name="tl-wdr4300"
 		;;
 	*TL-WR741ND)
