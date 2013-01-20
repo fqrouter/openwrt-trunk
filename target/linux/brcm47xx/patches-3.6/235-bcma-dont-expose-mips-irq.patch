@@ -10,7 +10,7 @@
  #endif /* LINUX_BCMA_DRIVER_MIPS_H_ */
 --- a/drivers/bcma/driver_chipcommon.c
 +++ b/drivers/bcma/driver_chipcommon.c
-@@ -258,7 +258,7 @@ void bcma_chipco_serial_init(struct bcma
+@@ -329,7 +329,7 @@ void bcma_chipco_serial_init(struct bcma
  		return;
  	}
  
@@ -45,6 +45,15 @@
  
  static void bcma_core_mips_set_irq(struct bcma_device *dev, unsigned int irq)
  {
+@@ -316,7 +322,7 @@ void bcma_core_mips_init(struct bcma_drv
+ 		break;
+ 	default:
+ 		list_for_each_entry(core, &bus->cores, list) {
+-			core->irq = bcma_core_mips_irq(core) + 2;
++			core->irq = bcma_core_irq(core);
+ 		}
+ 		bcma_err(bus,
+ 			 "Unknown device (0x%x) found, can not configure IRQs\n",
 --- a/drivers/bcma/driver_pci_host.c
 +++ b/drivers/bcma/driver_pci_host.c
 @@ -577,7 +577,7 @@ int bcma_core_pci_plat_dev_init(struct p
@@ -64,17 +73,6 @@
 +	return bcma_core_irq(pc_host->pdev->core);
  }
  EXPORT_SYMBOL(bcma_core_pci_pcibios_map_irq);
---- a/arch/mips/bcm47xx/gpio.c
-+++ b/arch/mips/bcm47xx/gpio.c
-@@ -94,7 +94,7 @@ int gpio_to_irq(unsigned gpio)
- #endif
- #ifdef CONFIG_BCM47XX_BCMA
- 	case BCM47XX_BUS_TYPE_BCMA:
--		return bcma_core_mips_irq(bcm47xx_bus.bcma.bus.drv_cc.core) + 2;
-+		return bcma_core_irq(bcm47xx_bus.bcma.bus.drv_cc.core);
- #endif
- 	}
- 	return -EINVAL;
 --- a/arch/mips/bcm47xx/serial.c
 +++ b/arch/mips/bcm47xx/serial.c
 @@ -62,7 +62,7 @@ static int __init uart8250_init_bcma(voi
