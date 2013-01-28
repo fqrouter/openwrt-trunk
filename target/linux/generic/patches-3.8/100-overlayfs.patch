@@ -279,8 +279,8 @@
  source "fs/fuse/Kconfig"
 +source "fs/overlayfs/Kconfig"
  
- config CUSE
- 	tristate "Character device in Userspace support"
+ config GENERIC_ACL
+ 	bool
 --- a/fs/Makefile
 +++ b/fs/Makefile
 @@ -107,6 +107,7 @@ obj-$(CONFIG_QNX6FS_FS)		+= qnx6/
@@ -3175,7 +3175,7 @@
  				      int flags, const char *name,
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -5661,6 +5661,13 @@ F:	drivers/scsi/osd/
+@@ -5667,6 +5667,13 @@ F:	drivers/scsi/osd/
  F:	include/scsi/osd_*
  F:	fs/exofs/
  
